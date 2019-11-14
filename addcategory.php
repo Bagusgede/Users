@@ -5,7 +5,7 @@ if (!isset($_SESSION["login"])){
     exit;
 }
 
-require 'functions1.php';
+require 'koneksi.php';
 
 $result = mysqli_query($conn, "SELECT * FROM users WHERE id = '$_SESSION[id]'");
 $row = mysqli_fetch_assoc($result);
@@ -39,7 +39,7 @@ $hasil = mysqli_query($conn, $query);
 <div class="uk-container">
 <div class=" uk-container uk-navbar-left ">
 
-<h1 class="uk-navbar-item uk-logo"> Welcome<?= $name;?></h1>
+<h1 class="uk-navbar-item uk-logo"><?= $name;?></h1>
 <div class="uk-navbar-right">
 
 <nav class="uk-navbar-container" uk-navbar>
@@ -52,7 +52,7 @@ $hasil = mysqli_query($conn, $query);
            <div class="uk-navbar-dropdown-grid uk-child-width-1-2" uk-grid>
                <div>
                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                       <li class="uk-active"><a href="">Hello<?= $name;?></a></li>
+                       <li class="uk-active"><a href="">HAI <?= $name;?></a></li>
                        <hr>
                        <li class="uk-active"><a href="logout.php">LOG OUT</a></li>
                       
@@ -71,12 +71,12 @@ $hasil = mysqli_query($conn, $query);
 <hr>
 <br><br>
 <div class="uk-button-group">
-<button class="uk-button uk-button-default">Category</button>
+<button class="uk-button uk-button-primary">Category</button>
 <div class="uk-inline">
 <button class="uk-button uk-button-default" type="button"><span uk-icon="icon:  triangle-down"></span></button>
 <div uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">
 <ul class="uk-nav uk-dropdown-nav">
-<form action="proccescategory.php" method="post">
+<form action="proccesscategory.php" method="post">
 <?php while($data = mysqli_fetch_array($hasil)) : ?>
 
 
@@ -94,7 +94,7 @@ $hasil = mysqli_query($conn, $query);
 <a href="" class="uk-icon-button uk-margin-small-right" uk-icon="plus"></a>
 <div uk-dropdown="mode:click;" class="uk-background-muted">
 <ul class="uk-nav uk-dropdown-nav">
-   <li class="uk-active"><a href="addcategori.php">Add Category</a></li>
+   <li class="uk-active"><a href="addcategory.php">Add Category</a></li>
    <hr>
    <li class="uk-active"><a href="addtodolist.php">Add To Do List</a></li>
   
@@ -114,7 +114,7 @@ $hasil = mysqli_query($conn, $query);
         <hr>
     <tr>
     <div class="uk-container">
-    <form action="proccescategory.php" method="post">
+    <form action="proccesscategory.php" method="post">
    <h4 class="uk-text-center uk-h4">Name Category</h4> 
     
     <input type="text" name="nama" placeholder="Enter Category...." class="uk-align-center uk-input" style="border: 1px solid black; border-radius:25px; padding:15px;">

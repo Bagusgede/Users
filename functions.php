@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+
 
 $conn = mysqli_connect("localhost", "root", "", "users");
 
@@ -16,10 +17,17 @@ function register($data) {
 
     $username = strtolower(stripslashes($data["username"]));
     $password = mysqli_real_escape_string($conn, $data["password"]);
+    $password2 = mysqli_real_escape_string($conn, $data["password2"]);
     $name = $data["name"];
     $email = $data["email"];
-    
-    $_SESSION["name"]=$name;
+
+$_SESSION["name"] =  $name ;
+    //set session 
+      
+
+
+   
+
 
     //ngecek username nya dlu, udah ada apa belom
 
@@ -27,8 +35,19 @@ function register($data) {
 
     if (mysqli_fetch_assoc($result)){
         echo "<script>
-                alert('Username Sudah Dipakai!');
+                alert('Username already taken!');
               </script>";
+        return false;
+    }
+
+
+    //cek konfimasi password
+
+    if ($password !== $password2) { 
+        echo"<script>
+                alert('Confirm Password Does Not Match!');
+                document.location.href = 'register.php'
+             </script>";
         return false;
     }
 
@@ -39,7 +58,7 @@ function register($data) {
 
     //nambahin user baru ke database
 
-    $query = "INSERT INTO users VALUES('', '$username', '$password', '$name', '$email' )";
+    $query = "INSERT INTO users VALUES('', '$username', '$password', '$password2', '$name', '$email' )";
     if (mysqli_query($conn, $query)) {
         return mysqli_affected_rows($conn);
     }
@@ -47,7 +66,19 @@ function register($data) {
         return false;
     }
     return $name = $data["name"];
+    
 }
+function hapus($id){
+    global $conn;
+    mysqli_query($conn, "DELETE FROM  todo_list WHERE id = '$id'");
+    return mysqli_affected_rows($conn);
 
+}
+function update($id){
+    global $conn;
+    mysqli_query($conn, "UPDATE todo_list SET status = '2' WHERE id = '$id'");
+    return mysqli_affected_rows($conn);
+
+}
 
 ?>
